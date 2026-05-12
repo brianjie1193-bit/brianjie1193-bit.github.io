@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>trivago 2026 自動化行銷全案系統</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #007faf; --secondary: #ff5a5f; --accent: #f48f00; --dark: #1e293b; --white: #ffffff;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Noto Sans TC', sans-serif; background: #f1f5f9; color: var(--dark); line-height: 1.6; }
+
+        /* 導航 */
+        nav { background: var(--white); padding: 15px 5%; display: flex; justify-content: center; box-shadow: 0 2px 15px rgba(0,0,0,0.05); position: sticky; top: 0; z-index: 100; }
+        .logo { font-size: 24px; font-weight: 900; color: var(--primary); }
+
+        /* Hero 區域 - 1. 名單蒐集頁 */
+        .hero {
+            height: 70vh;
+            background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('https://images.unsplash.com/photo-1455587734955-081b22074882?auto=format&fit=crop&q=80&w=1920');
+            background-size: cover; background-position: center; display: flex; flex-direction: column; justify-content: center; align-items: center; color: white; text-align: center; padding: 0 5%;
+        }
+        .hero h1 { font-size: 3rem; font-weight: 900; margin-bottom: 20px; }
+        
+        /* 2. 免費贈品下載區 */
+        .optin-card {
+            background: var(--white); max-width: 450px; padding: 40px; border-radius: 25px; box-shadow: 0 20px 50px rgba(0,0,0,0.15);
+            margin: -80px auto 60px; text-align: center; position: relative; z-index: 10;
+        }
+        .optin-card h3 { color: var(--primary); margin-bottom: 15px; }
+        .optin-card input { width: 100%; padding: 15px; margin-bottom: 15px; border: 1px solid #ddd; border-radius: 10px; }
+        .cta-btn { width: 100%; padding: 18px; background: var(--secondary); color: white; border: none; border-radius: 10px; font-size: 1.2rem; font-weight: bold; cursor: pointer; transition: 0.3s; }
+        .cta-btn:hover { transform: scale(1.02); filter: brightness(1.1); }
+
+        /* 3. 銷售頁 - 3 種類別展示 */
+        .sales-section { padding: 80px 5%; max-width: 1200px; margin: 0 auto; text-align: center; }
+        .sales-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; margin-top: 50px; }
+        .sales-card { background: white; border-radius: 20px; overflow: hidden; box-shadow: 0 10px 25px rgba(0,0,0,0.05); transition: 0.3s; text-align: left; }
+        .sales-card:hover { transform: translateY(-10px); }
+        .sales-card img { width: 100%; height: 200px; object-fit: cover; }
+        .card-content { padding: 25px; }
+        .price-tag { color: var(--secondary); font-size: 1.5rem; font-weight: 900; }
+
+        /* 4. 自動回覆信預覽區 (隱藏區塊) */
+        .email-preview { padding: 60px 5%; background: #e2e8f0; border-radius: 30px; margin: 40px 5%; }
+        .email-box { background: white; padding: 30px; border-radius: 15px; max-width: 600px; margin: 0 auto; border: 1px solid #cbd5e1; }
+
+        /* 5. 廣告文案區 */
+        .ad-copy-box { padding: 40px; background: #fff; border-left: 5px solid var(--accent); margin: 40px auto; max-width: 800px; }
+
+        footer { padding: 40px; text-align: center; color: #64748b; font-size: 0.9rem; }
+    </style>
+</head>
+<body>
+
+<nav><div class="logo">trivago <span>Marketing Suite</span></div></nav>
+
+<header class="hero">
+    <h1>2026 全球訂房省錢聖經</h1>
+    <p>實測教你如何在 trivago 找出隱藏的「地板價」，省下 30% 旅遊預算。</p>
+</header>
+
+<div class="optin-card">
+    <h3>領取免費電子書 (PDF)</h3>
+    <p style="margin-bottom: 20px; color: #666;">輸入 Email，我們將立刻發送攻略給你</p>
+    <form onsubmit="document.getElementById('email-result').style.display='block'; return false;">
+        <input type="email" placeholder="您的常用信箱" required>
+        <button type="submit" class="cta-btn">立即免費下載</button>
+    </form>
+</div>
+
+<section id="email-result" class="email-preview" style="display: none;">
+    <h2 style="text-align: center; margin-bottom: 20px;">📧 您將收到的自動回覆信：</h2>
+    <div class="email-box">
+        <p><strong>主旨：您的《訂房省錢聖經》已送達！(內含 12,000 名旅客都在用的秘密)</strong></p><br>
+        <p>嗨！我是你的旅遊省錢助手。</p>
+        <p>這是您剛才索取的 PDF 攻略：[點擊下載檔案]</p>
+        <p><strong>PS.</strong> 除了攻略，別忘了今天 trivago 正在針對大阪飯店進行限時比價，您可以點擊下方連結直接查看今日最低房價...</p>
+    </div>
+</section>
+
+<section class="sales-section">
+    <h2 style="font-size: 2.2rem;">🔥 精選旅遊類別：今日最低房價</h2>
+    <div class="sales-grid">
+        <div class="sales-card">
+            <img src="https://images.unsplash.com/photo-1503899036084-c55cdd92da26?auto=format&fit=crop&q=80&w=800" alt="Tokyo">
+            <div class="card-content">
+                <span style="color: #94a3b8;">類別 A: 時尚城市</span>
+                <h4>東京 - 新宿核心區精品飯店</h4>
+                <p>比價後省下 NT$2,800/晚</p>
+                <p class="price-tag">NT$ 3,450 <small>起</small></p>
+            </div>
+        </div>
+        <div class="sales-card">
+            <img src="https://images.unsplash.com/photo-1552465011-b4e21bf6e79a?auto=format&fit=crop&q=80&w=800" alt="Bangkok">
+            <div class="card-content">
+                <span style="color: #94a3b8;">類別 B: 奢華渡假</span>
+                <h4>曼谷 - 河畔無邊際泳池飯店</h4>
+                <p>trivago 搜尋價省下 40%</p>
+                <p class="price-tag">NT$ 1,890 <small>起</small></p>
+            </div>
+        </div>
+        <div class="sales-card">
+            <img src="https://images.unsplash.com/photo-1502602898657-3e91760cbb34?auto=format&fit=crop&q=80&w=800" alt="Paris">
+            <div class="card-content">
+                <span style="color: #94a3b8;">類別 C: 歐風藝術</span>
+                <h4>巴黎 - 艾菲爾鐵塔景觀套房</h4>
+                <p>掌握連假期間的地板價</p>
+                <p class="price-tag">NT$ 6,800 <small>起</small></p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="ad-copy-box">
+    <h3>📢 5. 廣告引流文案 (Copywriting)</h3><br>
+    <p><strong>【IG/FB 腳本】</strong></p>
+    <p>標題：同樣住五星級飯店，憑什麼你訂的比隔壁貴？🏨</p>
+    <p>內容：別再當訂房網的大數據盤子了！越搜越貴是常態。這份《訂房省錢聖經》教你如何利用 trivago 一秒掃描全球底價。已有 1.5 萬人領取，連結在首頁！🔗</p>
+    <br>
+    <p><strong>【Threads 腳本】</strong></p>
+    <p>內容：認真勸大家，出國訂房前一定要先清 Cookie 再用 trivago 比一遍。剛才實測東京飯店價差竟然快 3,000 台幣... 我把整理好的省錢 PDF 放下方，自己領。👇</p>
+</section>
+
+<footer>
+    <p>&copy; 2026 trivago 自動化行銷實戰專案展示</p>
+</footer>
+
+</body>
+</html>
